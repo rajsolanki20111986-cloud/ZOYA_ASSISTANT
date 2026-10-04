@@ -1,7 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { GoogleGenAI, Modality, Type } from "@google/genai";
 import { Browser } from "@capacitor/browser";
+
+// Server control functions
+const startServer = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/health');
+    return response.ok;
+  } catch {
+    return false;
+  }
+};
+
+const serverStatus = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/health');
+    return response.ok ? "Running" : "Stopped";
+  } catch {
+    return "Stopped";
+  }
+};
 
 // ---------------------------------------------------------------------------
 // Config
@@ -533,6 +552,31 @@ export default function App() {
               className="mb-4 w-full rounded-xl border border-white/15 bg-black/40 px-4 py-3 text-base text-white outline-none focus:border-cyan-400"
               style={{ userSelect: "text" }}
             />
+
+            <div className="mt-6 space-y-3 border-t border-white/10 pt-4">
+              <h3 className="text-sm font-semibold text-slate-300">Server Control</h3>
+              
+              <div className="space-y-2">
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" className="w-4 h-4" />
+                  Keep Server Running
+                </label>
+                
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" className="w-4 h-4" defaultChecked />
+                  Manual Control
+                </label>
+                
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" className="w-4 h-4" />
+                  AI Control (Auto)
+                </label>
+              </div>
+              
+              <div className="text-xs text-slate-400">
+                Server Status: <span className="text-cyan-400">Ready</span>
+              </div>
+            </div>
             <div className="flex gap-3">
               <button onClick={() => setSettingsOpen(false)} className="flex-1 rounded-xl border border-white/15 py-3 text-slate-300">
                 Cancel
