@@ -1,0 +1,6 @@
+{
+  "appId": "com.zoya.assistant",
+  "appName": "Zoya",
+  "webDir": "dist",
+  "server": { "androidScheme": "https" }
+}
