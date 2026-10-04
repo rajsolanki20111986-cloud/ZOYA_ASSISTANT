@@ -34,9 +34,7 @@ jobs:
 
       - name: Add microphone permissions
         run: |
-          sed -i 's#<application#<uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <application#' android/app/src/main/AndroidManifest.xml
+          sed -i 's#<application#<uses-permission android:name="android.permission.RECORD_AUDIO" />\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />\n    <application#' android/app/src/main/AndroidManifest.xml
           grep -n "RECORD_AUDIO" android/app/src/main/AndroidManifest.xml
 
       - name: Sync web files into Android
