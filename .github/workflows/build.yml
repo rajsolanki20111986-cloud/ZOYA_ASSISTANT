@@ -17,6 +17,7 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npx cap add android
+      - run: sed -i '/<manifest/a\    <uses-permission android:name="android.permission.RECORD_AUDIO" />' android/app/src/main/AndroidManifest.xml
       - run: cd android && ./gradlew assembleDebug
       
       - uses: actions/upload-artifact@v4
